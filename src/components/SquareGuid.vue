@@ -1,4 +1,4 @@
-<template >
+<template>
   <div>
     <el-row class="tac">
       <el-col :span="12">
@@ -12,6 +12,7 @@
             <span slot="title">个人</span>
           </el-menu-item>
           <div id="menu-space"></div>
+
           <el-menu-item index="PersonalSetting">
             <i class="el-icon-setting"></i>
             <span slot="title">设置</span>
@@ -29,10 +30,9 @@
 <script>
 export default {};
 </script>
+
 <style css>
 #menu-space {
   margin: 680px;
 }
 </style>
-
-

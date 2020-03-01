@@ -1,35 +1,57 @@
 <template>
   <div id="app">
-    <!-- <el-container>
-      <el-aside width="200px">
-        <hello-world />
-      </el-aside>
-      <el-main>
-        <square-center />
-      </el-main>
-    </el-container>-->
-
     <el-row>
       <el-col :span="4">
         <SquareGuid />
       </el-col>
       <el-col :span="20">
-        <router-view />
+        <router-view></router-view>
       </el-col>
     </el-row>
+
+    <div v-if="loading">
+      <SquareLoading class="loading"></SquareLoading>
+    </div>
   </div>
 </template>
 
 <script>
 import SquareGuid from "./components/SquareGuid.vue";
+import SquareLoading from "./components/SquareLoading.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "App",
+  data() {
+    return {
+      ex: true
+    };
+  },
+
   components: {
-    SquareGuid
+    SquareGuid,
+    SquareLoading
+  },
+
+  computed: {
+    ...mapState(["loading"])
+  },
+
+  watch: {
+    loading: function(val) {
+      if (val) {
+        this.$(".loading").show();
+      }
+      this.$(".loading").hide();
+    }
   }
 };
 </script>
 
 <style>
+.loading {
+  position: absolute;
+  top: 300px;
+  left: 900px;
+}
 </style>
