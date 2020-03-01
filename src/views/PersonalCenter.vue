@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-col :span="24">
+    <!-- <el-col :span="24">
       <el-row>
         <el-button>默认按钮</el-button>
         <el-button type="primary">主要按钮</el-button>
@@ -36,7 +36,8 @@
         <el-button type="warning" icon="el-icon-star-off" circle></el-button>
         <el-button type="danger" icon="el-icon-delete" circle></el-button>
       </el-row>
-    </el-col>
+    </el-col>-->
+    个人中心
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-time-select
+    <!-- <el-time-select
       v-model="value"
       :picker-options="{
     start: '08:30',
@@ -8,7 +8,8 @@
     end: '18:30'
   }"
       placeholder="选择时间"
-    ></el-time-select>
+    ></el-time-select>-->
+    广场
   </div>
 </template>
 

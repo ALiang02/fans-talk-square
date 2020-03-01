@@ -19,6 +19,7 @@
 import SquareGuid from "./components/SquareGuid.vue";
 import SquareLoading from "./components/SquareLoading.vue";
 import { mapState } from "vuex";
+import $ from "jquery"
 
 export default {
   name: "App",
@@ -39,10 +40,11 @@ export default {
 
   watch: {
     loading: function(val) {
+     
       if (val) {
-        this.$(".loading").show();
+        $(".loading").show();
       }
-      this.$(".loading").hide();
+      $(".loading").hide();
     }
   }
 };

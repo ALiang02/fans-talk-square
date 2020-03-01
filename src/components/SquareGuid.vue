@@ -11,6 +11,18 @@
             <i class="el-icon-user"></i>
             <span slot="title">个人</span>
           </el-menu-item>
+          <el-menu-item>
+            <i class="el-icon-service"></i>
+            <a href="网页小人/">
+              <span slot="title">网页小人</span>
+            </a>
+          </el-menu-item>
+          <el-menu-item index="壁纸/">
+            <i class="el-icon-picture"></i>
+            <a href="壁纸/">
+              <span slot="title">壁纸</span>
+            </a>
+          </el-menu-item>
           <div id="menu-space"></div>
 
           <el-menu-item index="PersonalSetting">
@@ -33,6 +45,6 @@ export default {};
 
 <style css>
 #menu-space {
-  margin: 680px;
+  margin: 540px;
 }
 </style>
