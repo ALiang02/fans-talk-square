@@ -1,13 +1,11 @@
 <template>
   <div id="app">
-    <el-row>
-      <el-col :span="4">
-        <SquareGuid />
-      </el-col>
-      <el-col :span="20">
-        <router-view></router-view>
-      </el-col>
-    </el-row>
+    <el-col :span="4">
+      <SquareGuid />
+    </el-col>
+    <el-col :span="20">
+      <router-view></router-view>
+    </el-col>
 
     <div v-if="loading">
       <SquareLoading class="loading"></SquareLoading>
@@ -19,7 +17,7 @@
 import SquareGuid from "./components/SquareGuid.vue";
 import SquareLoading from "./components/SquareLoading.vue";
 import { mapState } from "vuex";
-import $ from "jquery"
+import $ from "jquery";
 
 export default {
   name: "App",
@@ -40,7 +38,6 @@ export default {
 
   watch: {
     loading: function(val) {
-     
       if (val) {
         $(".loading").show();
       }
