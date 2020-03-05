@@ -11,7 +11,10 @@ const SquareCenter = () =>
 	import('../views/SquareCenter.vue')
 const SquareInfo = () =>
 	import('../views/SquareInfo.vue')
-
+const SquareLive = () =>
+	import('../views/SquareLive.vue')
+const SquareWallPaper = () =>
+	import('../views/SquareWallPaper.vue')
 
 
 Vue.use(Router)
@@ -33,6 +36,14 @@ const routes = [{
 		path: '/SquareInfo',
 		name: 'SquareInfo',
 		component: SquareInfo
+	},{
+		path: '/SquareLive',
+		name: 'SquareLive',
+		component: SquareLive
+	},{
+		path: '/SquareWallPaper',
+		name: 'SquareWallPaper',
+		component: SquareWallPaper
 	},
 
 ]

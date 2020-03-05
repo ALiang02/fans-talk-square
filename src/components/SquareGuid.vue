@@ -11,18 +11,15 @@
           <span slot="title">个人</span>
         </el-menu-item>
 
-        <el-menu-item>
-          <i class="el-icon-service"></i>
-          <a href="网页小人/">
-            <span slot="title">网页小人</span>
-          </a>
-        </el-menu-item>
-        <el-menu-item index="壁纸/">
+        <el-menu-item index="SquareWallPaper">
           <i class="el-icon-picture"></i>
-          <a href="壁纸/">
-            <span slot="title">壁纸</span>
-          </a>
+          <span slot="title">壁纸</span>
         </el-menu-item>
+        <el-menu-item index="SquareLive">
+          <i class="el-icon-service"></i>
+          <span slot="title">网页小人</span>
+        </el-menu-item>
+
         <el-menu-item index="PersonalSetting">
           <i class="el-icon-setting"></i>
           <span slot="title">设置</span>
