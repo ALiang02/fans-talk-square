@@ -5,16 +5,6 @@
         <SquareArticle></SquareArticle>
       </el-col>
     </el-row>
-    <el-row>
-      <el-col :span="12" :offset="4">
-        <SquareArticle></SquareArticle>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12" :offset="4">
-        <SquareArticle></SquareArticle>
-      </el-col>
-    </el-row>
   </div>
 </template>
 

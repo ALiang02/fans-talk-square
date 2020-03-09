@@ -1,11 +1,23 @@
 <template>
-  <div id="app">
-    <el-col :span="4">
+  <div id="app" v-loading.fullscreen.lock="loading">
+    <!-- <el-col :span="4" style="float: left;">
       <SquareGuid />
     </el-col>
     <el-col :span="20" v-loading.fullscreen.lock="loading">
       <router-view></router-view>
-    </el-col>
+    </el-col>-->
+
+    <el-container>
+      <el-header>Header</el-header>
+      <el-container>
+        <el-aside width="60">
+          <SquareGuid />
+        </el-aside>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
+    </el-container>
 
     <!-- <div v-if="loading">
       <SquareLoading class="loading"></SquareLoading>

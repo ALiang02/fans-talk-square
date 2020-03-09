@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-col>
-      <el-menu default-active="1" class="el-menu-vertical-demo" router>
+      <el-menu default-active="1" class="el-menu-vertical-demo" router :collapse="true">
         <el-menu-item index="SquareCenter">
           <i class="el-icon-location"></i>
           <span slot="title">广场</span>
