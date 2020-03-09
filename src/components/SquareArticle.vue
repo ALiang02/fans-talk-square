@@ -19,7 +19,7 @@
         </div>
       </el-row>
       <el-row>
-        <el-image :fit="contain">
+        <el-image src fit="contain">
           <div slot="error" class="image-slot">
             <i class="el-icon-picture-outline"></i>
           </div>
