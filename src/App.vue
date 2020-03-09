@@ -3,19 +3,19 @@
     <el-col :span="4">
       <SquareGuid />
     </el-col>
-    <el-col :span="20">
+    <el-col :span="20" v-loading.fullscreen.lock="loading">
       <router-view></router-view>
     </el-col>
 
-    <div v-if="loading">
+    <!-- <div v-if="loading">
       <SquareLoading class="loading"></SquareLoading>
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script>
 import SquareGuid from "./components/SquareGuid.vue";
-import SquareLoading from "./components/SquareLoading.vue";
+// import SquareLoading from "./components/SquareLoading.vue";
 import { mapState } from "vuex";
 import $ from "jquery";
 
@@ -28,8 +28,8 @@ export default {
   },
 
   components: {
-    SquareGuid,
-    SquareLoading
+    SquareGuid
+    // SquareLoading
   },
 
   computed: {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <iframe
-      src="/网页小人"
+      src="http://127.0.0.1/网页小人"
       scrolling="no"
       border="0"
       frameborder="no"
