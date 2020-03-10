@@ -8,7 +8,7 @@
       framespacing="0"
       allowfullscreen="true"
       width="100%"
-      height="800px"
+      height="700px"
     ></iframe>
   </div>
 </template>

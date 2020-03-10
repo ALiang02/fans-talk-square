@@ -8,15 +8,13 @@
     </el-col>-->
 
     <el-container>
-      <el-header>Header</el-header>
-      <el-container>
-        <el-aside width="60">
-          <SquareGuid />
-        </el-aside>
-        <el-main>
-          <router-view></router-view>
-        </el-main>
-      </el-container>
+      <el-header id="headerContent">
+        <SquareGuid />
+      </el-header>
+
+      <el-main id="mainConent">
+        <router-view></router-view>
+      </el-main>
     </el-container>
 
     <!-- <div v-if="loading">
@@ -29,13 +27,13 @@
 import SquareGuid from "./components/SquareGuid.vue";
 // import SquareLoading from "./components/SquareLoading.vue";
 import { mapState } from "vuex";
-import $ from "jquery";
+// import $ from "jquery";
 
 export default {
   name: "App",
   data() {
     return {
-      ex: true
+      // ex: true
     };
   },
 
@@ -46,23 +44,43 @@ export default {
 
   computed: {
     ...mapState(["loading"])
-  },
-
-  watch: {
-    loading: function(val) {
-      if (val) {
-        $(".loading").show();
-      }
-      $(".loading").hide();
-    }
   }
+
+  // watch: {
+  //   loading: function(val) {
+  //     if (val) {
+  //       $(".loading").show();
+  //     }
+  //     $(".loading").hide();
+  //   }
+  // }
 };
 </script>
 
 <style>
-.loading {
+/* .loading {
   position: absolute;
   top: 300px;
   left: 900px;
+} */
+
+#headerContent {
+  min-width: 620px;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  position: fixed;
+
+  z-index: 1;
+}
+
+#mainConent {
+  width: 60%;
+  min-width: 620px;
+  min-height: 800px;
+  background-color: aliceblue;
+  opacity: 0.8;
+  margin: auto;
+  margin-top: 80px;
 }
 </style>

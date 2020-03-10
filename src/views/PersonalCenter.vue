@@ -1,13 +1,14 @@
 <template>
-  <div>
-    个人
-
-  </div>
+  <div>个人</div>
 </template>
-
 <script>
-
-export default {
-
-};
 </script>
+<style>
+#mainmainConent {
+  width: 60%;
+  min-width: 500px;
+  background-color: aliceblue;
+  opacity: 0.5;
+  margin: auto;
+}
+</style>

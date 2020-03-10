@@ -8,7 +8,6 @@
       framespacing="0"
       allowfullscreen="true"
       width="100%"
-      height="300px"
     ></iframe>
   </div>
 </template>
@@ -18,6 +17,7 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {},
+  computed: {}
 };
 </script>
