@@ -26,24 +26,36 @@
 <script>
 import SquareGuid from "./components/SquareGuid.vue";
 // import SquareLoading from "./components/SquareLoading.vue";
+
 import { mapState } from "vuex";
+
+import store from "./store";
+
 // import $ from "jquery";
+// import imgsrc from "./assets/2.png";
 
 export default {
   name: "App",
   data() {
-    return {
-      // ex: true
-    };
+    return {};
   },
 
   components: {
     SquareGuid
+
     // SquareLoading
   },
 
   computed: {
     ...mapState(["loading"])
+  },
+
+  mounted() {
+    store.commit("setBackImg", 2);
+    var live2d = document.createElement("script"); // 创建script标签;
+    live2d.type = "text/javascript"; // 设置type属性;
+    live2d.src = "http://127.0.0.1/live2d/live2d-widget/autoload.js"; // 引入url;
+    document.body.appendChild(live2d); // 将script引入<head>中;
   }
 
   // watch: {
