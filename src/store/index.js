@@ -8,7 +8,9 @@ export default new Vuex.Store({
 	namespaced: true,
 	state: {
 		loading: false,
-		imgSrc: "http://127.0.0.1/壁纸/images/"
+		imgSrc: "http://127.0.0.1/壁纸/images/",
+		imgNum: "2"
+
 	},
 	mutations: {
 		Loading_Change(state, val) {
@@ -16,6 +18,7 @@ export default new Vuex.Store({
 		},
 
 		setBackImg(state, num) {
+			state.imgNum = num;
 			document.body.style.backgroundImage =
 				"url(" + state.imgSrc + num + ".png" + ")";
 			console.log(document.body.style.backgroundImage.toString());

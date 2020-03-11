@@ -1,21 +1,56 @@
 <template>
   <div>
-    <!-- <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number> -->
-    设置
+    <span>选择壁纸：</span>
+    <el-select v-model="value">
+      <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"></el-option>
+    </el-select>
   </div>
 </template>
 
 <script>
+import store from "../store";
+
 export default {
   data() {
     return {
-      num: 1
+      options: [
+        {
+          value: "1",
+          label: "1"
+        },
+        {
+          value: "2",
+          label: "2"
+        },
+        {
+          value: "3",
+          label: "3"
+        },
+        {
+          value: "4",
+          label: "4"
+        },
+        {
+          value: "5",
+          label: "5"
+        },
+        {
+          value: "6",
+          label: "6"
+        }
+      ],
+      value: store.state.imgNum
     };
   },
-  methods: {
-    handleChange(value) {
-      console.log(value);
+
+  watch: {
+    value: function() {
+      store.commit("setBackImg", this.value);
     }
+  },
+
+  mounted() {
+    this.value = 2;
   }
 };
 </script>

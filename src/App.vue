@@ -50,12 +50,17 @@ export default {
     ...mapState(["loading"])
   },
 
+  methods: {
+    live2dLoad() {
+      var live2d = document.createElement("script"); // 创建script标签;
+      live2d.type = "text/javascript"; // 设置type属性;
+      live2d.src = "http://127.0.0.1/live2d/live2d-widget/autoload.js"; // 引入url;
+      document.body.appendChild(live2d); // 将script引入<head>中;
+    }
+  },
+
   mounted() {
-    store.commit("setBackImg", 2);
-    var live2d = document.createElement("script"); // 创建script标签;
-    live2d.type = "text/javascript"; // 设置type属性;
-    live2d.src = "http://127.0.0.1/live2d/live2d-widget/autoload.js"; // 引入url;
-    document.body.appendChild(live2d); // 将script引入<head>中;
+    store.commit("setBackImg", store.state.imgNum);
   }
 
   // watch: {
