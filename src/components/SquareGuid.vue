@@ -10,14 +10,14 @@
         <span slot="title">个人</span>
       </el-menu-item>
 
-      <el-menu-item index="SquareWallPaper">
+      <!-- <el-menu-item index="SquareWallPaper">
         <i class="el-icon-picture"></i>
         <span slot="title">壁纸</span>
-      </el-menu-item>
-      <el-menu-item index="SquareLive">
+      </el-menu-item>-->
+      <!-- <el-menu-item index="SquareLive">
         <i class="el-icon-service"></i>
         <span slot="title">网页小人</span>
-      </el-menu-item>
+      </el-menu-item>-->
 
       <el-menu-item index="PersonalSetting">
         <i class="el-icon-setting"></i>

@@ -8,7 +8,7 @@ export default new Vuex.Store({
 	namespaced: true,
 	state: {
 		loading: false,
-		imgSrc: "http://127.0.0.1/壁纸/images/",
+		imgSrc: "http://118.178.94.45:8080/壁纸/images/",
 		imgNum: "2"
 
 	},

@@ -1,7 +1,7 @@
 <template>
   <div>
     <iframe
-      src="http://127.0.0.1/壁纸"
+      src="http://118.178.94.45:8080/壁纸"
       scrolling="no"
       border="0"
       frameborder="no"
