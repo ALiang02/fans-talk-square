@@ -9,7 +9,7 @@ export default new Vuex.Store({
 	state: {
 		loading: false,
 		imgSrc: "http://118.178.94.45:8080/壁纸/images/",
-		imgNum: "2"
+		imgNum: ""
 
 	},
 	mutations: {
@@ -19,13 +19,13 @@ export default new Vuex.Store({
 
 		setBackImg(state, num) {
 			state.imgNum = num;
+			localStorage.setItem("imgNum",state.imgNum);
 			document.body.style.backgroundImage =
 				"url(" + state.imgSrc + num + ".png" + ")";
 			console.log(document.body.style.backgroundImage.toString());
 		}
 	},
-	actions: {
-
-	},
-	modules: {}
+	
+	
+	
 })

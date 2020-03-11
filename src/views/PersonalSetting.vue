@@ -47,10 +47,6 @@ export default {
     value: function() {
       store.commit("setBackImg", this.value);
     }
-  },
-
-  mounted() {
-    this.value = 2;
   }
 };
 </script>

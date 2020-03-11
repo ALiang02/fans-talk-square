@@ -50,7 +50,7 @@ const routes = [{
 
 const router = new Router({
 	//使用什么方式切换路由
-	mode: 'history', //html5 API的history
+	mode: 'hash', //html5 API的history
 	// base: process.env.BASE_URL,
 	base: "/",
 	routes

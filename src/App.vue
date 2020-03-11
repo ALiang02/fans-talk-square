@@ -60,8 +60,12 @@ export default {
   },
 
   mounted() {
-    store.commit("setBackImg", store.state.imgNum);
     this.live2dLoad();
+    if (localStorage.getItem("imgNum") != null) {
+      store.commit("setBackImg", localStorage.getItem("imgNum"));
+    } else {
+      store.commit("setBackImg", "2");
+    }
   }
 
   // watch: {
