@@ -87,7 +87,7 @@ export default {
 } */
 
 #headerContent {
-  min-width: 620px;
+  min-width: 650px;
   width: 100%;
   height: auto;
   padding: 0;
@@ -98,7 +98,7 @@ export default {
 
 #mainConent {
   width: 60%;
-  min-width: 620px;
+  min-width: 650px;
   min-height: 800px;
   background-color: aliceblue;
   opacity: 0.8;
