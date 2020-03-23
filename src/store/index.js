@@ -8,7 +8,6 @@ export default new Vuex.Store({
 	namespaced: true,
 	state: {
 		loading: false,
-		imgSrc: "http://118.178.94.45:8080/壁纸/images/",
 		imgNum: ""
 
 	},
@@ -21,7 +20,7 @@ export default new Vuex.Store({
 			state.imgNum = num;
 			localStorage.setItem("imgNum",state.imgNum);
 			document.body.style.backgroundImage =
-				"url(" + state.imgSrc + num + ".png" + ")";
+				"url(" +"http://127.0.0.1/壁纸/images/" + num + ".png" + ")";
 			console.log(document.body.style.backgroundImage.toString());
 		}
 	},
