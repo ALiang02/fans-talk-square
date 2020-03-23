@@ -5,7 +5,9 @@
         <!-- 切勿通过style或script标签修改canvas的width和height属性 -->
       </canvas>
     </div>
-    <button type="button" name="myBtn" @click="restart">按钮</button>
+    <div id="restart" align="center">
+      <el-button type="primary" @click="start">开始游戏</el-button>
+    </div>
   </div>
 </template>
 
@@ -20,7 +22,8 @@ export default {
       qizipre: {
         x: -1,
         y: -1
-      }
+      },
+      gameIsStarted: false
     };
   },
 
@@ -119,6 +122,9 @@ export default {
     },
 
     getXY(e) {
+      if (this.gameIsStarted === false) {
+        return;
+      }
       //获取x,y坐标
       var x = e.offsetX;
       var y = e.offsetY;
@@ -148,23 +154,15 @@ export default {
     victory() {
       var line = [];
       if (this.check(0, 1, line)) {
-        console.log("胜利");
-
         return;
       }
       if (this.check(1, 0, line)) {
-        console.log("胜利");
-
         return;
       }
       if (this.check(1, 1, line)) {
-        console.log("胜利");
-
         return;
       }
       if (this.check(1, -1, line)) {
-        console.log("胜利");
-
         return;
       }
     },
@@ -184,6 +182,8 @@ export default {
             line.push(this.qizis[j]);
             if (line.length === 5) {
               this.drawVctLine(line, n);
+              console.log("胜利");
+              this.gameIsStarted = false;
               return true;
             }
             break;
@@ -211,7 +211,8 @@ export default {
       cxt.stroke();
     },
 
-    restart() {
+    start() {
+      this.gameIsStarted = true;
       this.qizis = [];
       this.qizipre = {
         x: -1,
@@ -224,7 +225,7 @@ export default {
 
   mounted() {
     Cookie.set("name", "cookie测试");
-    this.qipanInit();
+
     request({
       url: "test",
       method: "get"
