@@ -8,7 +8,8 @@ export default new Vuex.Store({
 	namespaced: true,
 	state: {
 		loading: false,
-		imgNum: ""
+		imgNum: "",
+		
 
 	},
 	mutations: {
@@ -20,9 +21,11 @@ export default new Vuex.Store({
 			state.imgNum = num;
 			localStorage.setItem("imgNum",state.imgNum);
 			document.body.style.backgroundImage =
-				"url(" +"http://127.0.0.1/壁纸/images/" + num + ".png" + ")";
-			console.log(document.body.style.backgroundImage.toString());
-		}
+				"url(" +"http://118.178.94.45:8080/壁纸/images/" + num + ".png" + ")";
+			
+		},
+
+		
 	},
 	
 	

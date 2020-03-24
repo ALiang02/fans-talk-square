@@ -13,7 +13,9 @@
       </el-header>
 
       <el-main id="mainConent">
-        <router-view></router-view>
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
       </el-main>
     </el-container>
 
@@ -30,6 +32,8 @@ import SquareGuid from "./components/SquareGuid.vue";
 import { mapState } from "vuex";
 
 import store from "./store";
+
+import Cookie from "js-cookie";
 
 // import $ from "jquery";
 // import imgsrc from "./assets/2.png";
@@ -65,6 +69,12 @@ export default {
       store.commit("setBackImg", localStorage.getItem("imgNum"));
     } else {
       store.commit("setBackImg", "2");
+    }
+
+    if (!Cookie.get("userName")) {
+      var d = new Date();
+      var userName = d.getHours() + "-" + d.getMinutes() + "-" + d.getSeconds();
+      Cookie.set("userName", userName);
     }
   }
 

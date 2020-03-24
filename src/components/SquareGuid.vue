@@ -9,6 +9,10 @@
         <i class="el-icon-user"></i>
         <span slot="title">个人</span>
       </el-menu-item>
+      <el-menu-item index="WuziQi">
+        <i class="el-icon-s-grid"></i>
+        <span slot="title">五子棋</span>
+      </el-menu-item>
 
       <!-- <el-menu-item index="SquareWallPaper">
         <i class="el-icon-picture"></i>

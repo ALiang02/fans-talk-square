@@ -11,6 +11,8 @@ const SquareCenter = () =>
 	import('../views/SquareCenter.vue')
 const SquareInfo = () =>
 	import('../views/SquareInfo.vue')
+const WuziQi = () =>
+	import('../views/WuziQi.vue')
 
 
 Vue.use(Router)
@@ -32,6 +34,10 @@ const routes = [{
 		path: '/SquareInfo',
 		name: 'SquareInfo',
 		component: SquareInfo
+	},{
+		path: '/WuziQi',
+		name: 'WuziQi',
+		component: WuziQi
 	},
 
 ]
