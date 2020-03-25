@@ -10,6 +10,7 @@ export default new Vuex.Store({
 		loading: false,
 		imgNum: "",
 		
+		
 
 	},
 	mutations: {
