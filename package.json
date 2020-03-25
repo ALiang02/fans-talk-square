@@ -1,6 +1,6 @@
 {
-  "name": "fans-talk-square-v0.2",
-  "version": "0.1.0",
+  "name": "fans-talk-square",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
