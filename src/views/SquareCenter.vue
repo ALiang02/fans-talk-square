@@ -34,11 +34,14 @@ export default {
     },
 
     sendAxios() {
-      var message = { name: "测试", age: "18" };
       service({
-        method: "post",
         url: "demo",
-        data: message
+        data: {
+          name: "测试",
+          age: 18,
+          schoole: { grade: 2, term: 2 },
+          arr: [1, 2, 3]
+        }
       }).then(res => {
         console.log(res);
       });
