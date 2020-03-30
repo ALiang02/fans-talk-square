@@ -5,13 +5,34 @@
         <!-- 切勿通过style或script标签修改canvas的width和height属性 -->
       </canvas>
     </div>
-    <div id="restart" align="center">
-      <el-button type="primary" @click="start">开始游戏</el-button>
+    <div class="gamerMsg">
+      <div class="gamer">{{gamer1}}</div>
+      <div class="gamer">vs</div>
+      <div class="gamer">{{gamer2}}</div>
+    </div>
+
+    <div id="start" align="center">
+      <el-button type="primary" @click="build">创建对局</el-button>
+      <el-button type="primary" @click="join">加入对局</el-button>
+      <el-button type="primary" @click="refresh">刷新对局</el-button>
+      <el-button type="primary" @click="start">开始</el-button>
+      <el-button type="primary" @click="quit">退出</el-button>
+    </div>
+
+    <div align="center">
+      <div v-for="room in rooms" :key="room.name">
+        <input type="radio" name="room" :value="room.name" class="room" @click="roomChoose" />
+        {{room.name+"的房间"}}
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Cookie from "js-cookie";
+import service from "@/utils/request.js";
+import { init } from "@/utils/webSocket.js";
+
 export default {
   data() {
     return {
@@ -20,11 +41,170 @@ export default {
         x: -1,
         y: -1
       },
-      gameIsStarted: false
+      gameIsStarted: false,
+      turn: false,
+      username: Cookie.get("userName"),
+      gamer1: "?",
+      gamer2: "?",
+      count: 5,
+      room: "",
+      rooms: [
+        {
+          name: "五子棋无敌"
+        },
+        {
+          name: "天下无敌"
+        },
+        {
+          name: "大脑天宫"
+        }
+      ],
+      socket: ""
     };
   },
 
   methods: {
+    getRooms() {
+      service({
+        url: "getRooms",
+        data: ""
+      }).then(res => {
+        this.rooms = res.data.rooms;
+      });
+    },
+
+    addRoom() {
+      service({
+        url: "addRoom",
+        data: {
+          room: this.username
+        }
+      }).then(res => {
+        // todo
+        console.log(res);
+      });
+    },
+
+    removeRoom() {
+      service({
+        url: "removeRoom",
+        data: {
+          room: this.username
+        }
+      }).then(res => {
+        // todo
+        console.log(res);
+      });
+    },
+
+    roomChoose(e) {
+      this.room = e.srcElement.value;
+      console.log(this.room);
+      // e.srcElement.e.srcElement.style.background = "#E6A23C";
+    },
+
+    quit() {
+      this.gamer1 = "?";
+      this.gamer2 = "?";
+      this.socket.close();
+      this.socket = "";
+      if (this.gamer1 === this.username) {
+        this.removeRoom();
+        this.getRooms();
+      }
+    },
+
+    refresh() {
+      this.getRooms();
+    },
+
+    sendWebSocket(message) {
+      if (message.act === "qizi") {
+        this.turn = false;
+      }
+      this.socket.send(JSON.stringify(message));
+    },
+
+    reciveWebSocket(message) {
+      //todo
+      if (message.act === "qizi") {
+        this.turn = true;
+        this.qizis.push(message.qizi);
+
+        this.qizipre.x = -1;
+        this.qizipre.y = -1;
+        this.qipanInit();
+        this.victory();
+      }
+      if (message.act === "join") {
+        this.gamer2 = message.gamer2;
+      }
+      if (message.act === "quit") {
+        if (this.gamer1 === this.username) {
+          this.gamer2 = "?";
+          this.gameIsStarted = false;
+        } else {
+          this.gamer1 = "?";
+          this.gameIsStarted = false;
+        }
+      }
+    },
+
+    build() {
+      if (this.gamer1 === "?" && this.gamer2 === "?") {
+        // this.rooms.push({
+        //   name: this.username
+        // });
+        this.addRoom();
+        this.getRooms();
+        this.gamer1 = this.username;
+        this.socket = init("game");
+        this.sendWebSocket({
+          act: "build",
+          game: { gamer1: this.gamer1, gamer2: "?" }
+        });
+      } else {
+        alert("请先退出对局");
+      }
+    },
+
+    join() {
+      if (this.gamer1 !== "?" || this.gamer2 !== "?") {
+        alert("请先退出对局");
+        return;
+      }
+      if (this.room === "") {
+        alert("请先选择对战对局");
+        return;
+      }
+      this.gamer1 = this.room;
+      this.gamer2 = this.username;
+      this.socket = init("game");
+      this.sendWebSocket({
+        act: "join",
+        game: { gamer1: this.gamer1, gamer2: this.gamer2 }
+      });
+    },
+
+    start() {
+      if (this.gamer1 === this.username && this.gamer2 !== "?") {
+        alert("游戏开始");
+        this.gameIsStarted = true;
+        this.turn = true;
+        this.qizis = [];
+        this.qizipre = {
+          x: -1,
+          y: -1
+        };
+        this.qipanInit();
+        this.qipanInit();
+      } else if (this.gamer1 !== "?" && this.gamer2 === this.username) {
+        alert("请呼叫房主开始游戏");
+      } else {
+        alert("还不能开始哟");
+      }
+    },
+
     qipanInit() {
       var qipan = document.getElementById("qipan");
 
@@ -122,6 +302,9 @@ export default {
       if (this.gameIsStarted === false) {
         return;
       }
+      if (this.turn === false) {
+        return;
+      }
       //获取x,y坐标
       var x = e.offsetX - 20;
       var y = e.offsetY - 20;
@@ -137,6 +320,7 @@ export default {
             x,
             y
           });
+          this.sendWebSocket({ act: "qizi", qizi: { x: x, y: y } });
           this.qizipre.x = -1;
           this.qizipre.y = -1;
           this.qipanInit();
@@ -180,6 +364,11 @@ export default {
             if (line.length === 5) {
               this.drawVctLine(line, n);
               console.log("胜利");
+              if (n % 2 === 0) {
+                console.log(this.gamer1 + "胜利");
+              } else {
+                console.log(this.gamer2 + "胜利");
+              }
               this.gameIsStarted = false;
               return true;
             }
@@ -206,18 +395,22 @@ export default {
         cxt.strokeStyle = "white";
       }
       cxt.stroke();
-    },
-
-    start() {
-      this.gameIsStarted = true;
-      this.qizis = [];
-      this.qizipre = {
-        x: -1,
-        y: -1
-      };
-      this.qipanInit();
-      this.qipanInit();
     }
+
+    // start() {
+    //   this.gameIsStarted = true;
+    //   this.qizis = [];
+    //   this.qizipre = {
+    //     x: -1,
+    //     y: -1
+    //   };
+    //   this.qipanInit();
+    //   this.qipanInit();
+    // }
+  },
+
+  mounted() {
+    this.qipanInit();
   }
 };
 </script>
@@ -226,5 +419,26 @@ export default {
   width: 601px;
   height: 601px;
   margin: auto;
+}
+
+.gamerMsg {
+  width: 601px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.gamer {
+  width: 200px;
+  height: 100%;
+
+  text-align: center;
+  /* float: left; */
+  display: inline-block;
+}
+
+.gameroom {
+  list-style-type: none;
+  text-align: center;
 }
 </style>

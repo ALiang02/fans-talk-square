@@ -10,8 +10,6 @@ export default new Vuex.Store({
 		loading: false,
 		imgNum: "",
 		
-		
-
 	},
 	mutations: {
 		Loading_Change(state, val) {
