@@ -144,6 +144,15 @@ def game(request):
                             if(webSocketRequest['name']==message['game']['gamer1']):
                                 print('true')
                                 webSocketRequest['request'].send(json.dumps(send_message).encode())
+                    if (message['act'] == "quit"):
+                        print("quit")
+
+                        send_message = {
+                            'act': "quit",
+                        }
+                        for webSocketRequest in webSocketRequests:
+                            if (webSocketRequest['name'] == message['to']):
+                                webSocketRequest['request'].send(json.dumps(send_message).encode())
                     if(message['act'] == "qizi"):
                         print("qizi")
                         send_message = {
@@ -157,6 +166,12 @@ def game(request):
 
         except Exception as e:
             try:
+                for webSocketRequest in webSocketRequests:
+                    if (webSocketRequest['request'] == request.websocket):
+                        webSocketRequests.remove(webSocketRequest)
+                        for room in rooms:
+                            if(room['name'] == webSocketRequest['name']):
+                                rooms.remove(room)
                 request.websocket.close()
                 return
             except:

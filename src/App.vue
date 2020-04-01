@@ -74,6 +74,7 @@ export default {
     if (!Cookie.get("userName")) {
       var d = new Date();
       var userName = d.getHours() + "-" + d.getMinutes() + "-" + d.getSeconds();
+      store.state.username = userName;
       Cookie.set("userName", userName);
     }
   }

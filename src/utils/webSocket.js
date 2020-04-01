@@ -1,5 +1,5 @@
 export function init(url){
-    var socket = new WebSocket("ws://127.0.0.1:8000/" + url);
+    var socket = new WebSocket("ws://118.178.94.45:8081/" + url);
     socket.onopen = () => {
         console.log(url+"连接成功")
     }

@@ -29,9 +29,9 @@
 </template>
 
 <script>
-import Cookie from "js-cookie";
 import service from "@/utils/request.js";
 import { init } from "@/utils/webSocket.js";
+import store from "../store";
 
 export default {
   data() {
@@ -43,10 +43,10 @@ export default {
       },
       gameIsStarted: false,
       turn: false,
-      username: Cookie.get("userName"),
+      // username: Cookie.get("userName"),
       gamer1: "?",
       gamer2: "?",
-      count: 5,
+      username: store.state.username,
       room: "",
       rooms: [
         {
@@ -62,6 +62,8 @@ export default {
       socket: ""
     };
   },
+
+  computed: {},
 
   methods: {
     getRooms() {
@@ -104,6 +106,18 @@ export default {
 
     quit() {
       // this.socket.close();
+      if (this.socket !== "") {
+        var to;
+        if (this.gamer1 === this.username) {
+          to = this.gamer2;
+        } else {
+          to = this.gamer1;
+        }
+        this.sendWebSocket({
+          act: "quit",
+          to
+        });
+      }
       this.socket = "";
       if (this.gamer1 === this.username) {
         this.removeRoom();
@@ -153,6 +167,7 @@ export default {
           this.gameIsStarted = false;
         } else {
           this.gamer1 = "?";
+          this.gamer2 = "?";
           this.gameIsStarted = false;
         }
       }

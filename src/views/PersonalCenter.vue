@@ -19,18 +19,19 @@
 
 <script>
 import Cookie from "js-cookie";
+import store from "../store";
 
 export default {
   data() {
     return {
       userForm: {
-        name: Cookie.get("userName")
+        name: store.state.username
       }
     };
   },
   methods: {
     submitName() {
-      if (this.userForm.name === Cookie.get("userName")) {
+      if (this.userForm.name === store.state.username) {
         this.$alert("姓名与之前一致", "修改失败", {
           confirmButtonText: "确定"
         });
@@ -39,6 +40,7 @@ export default {
       this.$refs["userForm"].validate(valid => {
         if (valid) {
           Cookie.set("userName", this.userForm.name);
+          store.state.username = this.userForm.name;
           this.$alert("姓名已修改", "修改成功", {
             confirmButtonText: "确定"
           });
