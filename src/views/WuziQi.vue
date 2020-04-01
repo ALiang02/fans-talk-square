@@ -67,9 +67,14 @@ export default {
     getRooms() {
       service({
         url: "getRooms",
-        data: ""
+        data: {}
       }).then(res => {
         this.rooms = res.data.rooms;
+        for (var room of res.data.rooms) {
+          if (room.name === this.username) {
+            this.gamer1 = this.username;
+          }
+        }
       });
     },
 
@@ -77,11 +82,8 @@ export default {
       service({
         url: "addRoom",
         data: {
-          room: this.username
+          name: this.username
         }
-      }).then(res => {
-        // todo
-        console.log(res);
       });
     },
 
@@ -89,29 +91,26 @@ export default {
       service({
         url: "removeRoom",
         data: {
-          room: this.username
+          name: this.username
         }
-      }).then(res => {
-        // todo
-        console.log(res);
       });
     },
 
     roomChoose(e) {
       this.room = e.srcElement.value;
-      console.log(this.room);
+
       // e.srcElement.e.srcElement.style.background = "#E6A23C";
     },
 
     quit() {
-      this.gamer1 = "?";
-      this.gamer2 = "?";
-      this.socket.close();
+      // this.socket.close();
       this.socket = "";
       if (this.gamer1 === this.username) {
         this.removeRoom();
-        this.getRooms();
       }
+      this.gamer1 = "?";
+      this.gamer2 = "?";
+      this.getRooms();
     },
 
     refresh() {
@@ -119,27 +118,36 @@ export default {
     },
 
     sendWebSocket(message) {
+      console.log("sendWebSocket:");
+      console.log(message);
       if (message.act === "qizi") {
         this.turn = false;
       }
-      this.socket.send(JSON.stringify(message));
+      console.log(this.socket.readyState);
+      if (this.socket.readyState === 1) {
+        this.socket.send(JSON.stringify(message));
+      }
     },
 
     reciveWebSocket(message) {
+      var data = JSON.parse(message.data);
+      console.log(data);
+      console.log("reciveWebSocket" + data);
       //todo
-      if (message.act === "qizi") {
+      if (data.act === "qizi") {
+        this.gameIsStarted = true;
         this.turn = true;
-        this.qizis.push(message.qizi);
+        this.qizis.push(data.qizi);
 
         this.qizipre.x = -1;
         this.qizipre.y = -1;
         this.qipanInit();
         this.victory();
       }
-      if (message.act === "join") {
-        this.gamer2 = message.gamer2;
+      if (data.act === "join") {
+        this.gamer2 = data.gamer2;
       }
-      if (message.act === "quit") {
+      if (data.act === "quit") {
         if (this.gamer1 === this.username) {
           this.gamer2 = "?";
           this.gameIsStarted = false;
@@ -159,10 +167,15 @@ export default {
         this.getRooms();
         this.gamer1 = this.username;
         this.socket = init("game");
-        this.sendWebSocket({
-          act: "build",
-          game: { gamer1: this.gamer1, gamer2: "?" }
-        });
+        this.socket.onmessage = this.reciveWebSocket;
+
+        let _this = this;
+        setTimeout(function() {
+          _this.sendWebSocket({
+            act: "build",
+            game: { gamer1: _this.gamer1, gamer2: "?" }
+          });
+        }, 1000);
       } else {
         alert("请先退出对局");
       }
@@ -180,10 +193,14 @@ export default {
       this.gamer1 = this.room;
       this.gamer2 = this.username;
       this.socket = init("game");
-      this.sendWebSocket({
-        act: "join",
-        game: { gamer1: this.gamer1, gamer2: this.gamer2 }
-      });
+      this.socket.onmessage = this.reciveWebSocket;
+      let _this = this;
+      setTimeout(function() {
+        _this.sendWebSocket({
+          act: "join",
+          game: { gamer1: _this.gamer1, gamer2: _this.gamer2 }
+        });
+      }, 1000);
     },
 
     start() {
@@ -320,7 +337,18 @@ export default {
             x,
             y
           });
-          this.sendWebSocket({ act: "qizi", qizi: { x: x, y: y } });
+          var n = this.qizis.length - 1;
+          var to;
+          if (n % 2 === 0) {
+            to = this.gamer2;
+          } else {
+            to = this.gamer1;
+          }
+          this.sendWebSocket({
+            act: "qizi",
+            qizi: { x: x, y: y },
+            to
+          });
           this.qizipre.x = -1;
           this.qizipre.y = -1;
           this.qipanInit();
@@ -411,6 +439,7 @@ export default {
 
   mounted() {
     this.qipanInit();
+    this.getRooms();
   }
 };
 </script>
